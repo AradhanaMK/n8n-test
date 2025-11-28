@@ -29,7 +29,11 @@
     </div>
 
     <script>
-        console.log("Test Page Loaded Successfully);
+        console.log("Test Page Loaded Successfully");
+        const features = document.querySelectorAll('ul li');
+        features.forEach((feature, index) => {
+            feature.textContent += ` (Feature ${index + 1});
+        });
     </script>
 
     <footer>
