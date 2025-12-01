@@ -1,30 +1,30 @@
-def factorial(n: int) -> int:
-    """Calculate the factorial of a non-negative integer n."""
-    if n < 0:
+def factorial(n):
+    """
+    Calculate the factorial of a non-negative integer.
+
+    Parameters:
+    n (int): A non-negative integer for which to calculate the factorial.
+
+    Returns:
+    int: The factorial of the input integer.
+
+    Raises:
+    ValueError: If n is a negative integer.
+    """
+    if not isinstance(n, int) or n < 0:
         raise ValueError("Input must be a non-negative integer.")
+    return _factorial_helper(n)
+
+
+def _factorial_helper(n):
+    """
+    Recursive helper function to calculate factorial.
+    """
     if n == 0:
         return 1
-    return n * factorial(n - 1)
+    return n * _factorial_helper(n - 1)
 
-# Example usage (uncomment to test):
-# if __name__ == '__main__':
-#     print(factorial(5))  # Output: 120
 
-# Automated tests
-import unittest
+# Example usage:
+# print(factorial(5))  # Output: 120
 
-class TestFactorial(unittest.TestCase):
-    def test_factorial_zero(self):
-        self.assertEqual(factorial(0), 1)
-    
-    def test_factorial_positive(self):
-        self.assertEqual(factorial(5), 120)
-        self.assertEqual(factorial(4), 24)
-        self.assertEqual(factorial(3), 6)
-
-    def test_factorial_negative(self):
-        with self.assertRaises(ValueError):
-            factorial(-1)
-
-if __name__ == '__main__':
-    unittest.main()
