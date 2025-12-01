@@ -1,25 +1,16 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
-from typing import List
 
 app = FastAPI()
 
-# Request model
-class NumberList(BaseModel):
-    numbers: List[float]
+class Numbers(BaseModel):
+    values: list[int]
 
-@app.get("/")
-def home():
-    return {"message": "FastAPI Largest Number API"}
-
-# POST API to find largest number
 @app.post("/largest")
-def find_largest_number(data: NumberList):
-    if not data.numbers:
-        return {"error": "List cannot be empty"}
+def get_largest_number(numbers: Numbers):
+    if not numbers.values:
+        raise HTTPException(status_code=400, detail="List of numbers cannot be empty.")
+    largest = max(numbers.values)
+    return {"largest": largest}
 
-    largest_number = max(data.numbers)
-    return {
-        "numbers": data.numbers,
-        "largest": largest_number
-    }
+# Additional future improvements can include separating request model and business logic into separate modules.
