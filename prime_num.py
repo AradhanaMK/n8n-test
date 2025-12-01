@@ -1,3 +1,16 @@
+def get_input_range():
+    while True:
+        try:
+            start = int(input('Enter the start of the range (positive integer): '))
+            end = int(input('Enter the end of the range (positive integer): '))
+            if start < 0 or end < 0:
+                print('Please enter positive integers for the range.')
+                continue
+            return start, end
+        except ValueError:
+            print('Invalid input. Please enter valid integers for the range.')
+
+
 def is_prime(n):
     if n <= 1:
         return False
@@ -7,28 +20,16 @@ def is_prime(n):
     return True
 
 
-def get_range_input():
-    while True:
-        try:
-            range_start = int(input("Enter the start of the range: "))
-            range_end = int(input("Enter the end of the range: "))
-            if range_start <= range_end:
-                return range_start, range_end
-            else:
-                print("Start must be less than or equal to end.")
-        except ValueError:
-            print("Please enter valid integers.")
-
-
-def print_prime_numbers(range_start, range_end):
-    prime_numbers = [num for num in range(range_start, range_end + 1) if is_prime(num)]
-    print(f"Prime numbers between {range_start} and {range_end}: {prime_numbers}")
-
-
-def main():
-    range_start, range_end = get_range_input()
-    print_prime_numbers(range_start, range_end)
+def print_prime_numbers(start, end):
+    primes = []
+    for num in range(start, end + 1):
+        if is_prime(num):
+            primes.append(num)
+    return primes
 
 
 if __name__ == '__main__':
-    main()
+    start, end = get_input_range()
+    prime_numbers = print_prime_numbers(start, end)
+    print(f'Prime numbers between {start} and {end}: {prime_numbers}')
+
