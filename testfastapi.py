@@ -1,33 +1,31 @@
-class EmptyListError(Exception):
-    pass
-
-class NonNumericValueError(Exception):
-    def __init__(self, value):
-        super().__init__(f"Non-numeric value encountered: {value} (expected a numeric value)")
-
 class NumberAnalyzer:
-    def __init__(self, numbers):
+    def __init__(self, numbers: list[float]) -> None:
         self.numbers = numbers
 
-    def check_empty_list(self) -> None:
-        if not self.numbers:
-            raise EmptyListError("The list of numbers cannot be empty.")
-
-    def check_non_numeric_values(self) -> None:
-        for value in self.numbers:
-            if not isinstance(value, (int, float)):
-                raise NonNumericValueError(value)
+    def validate_numbers(self) -> None:
+        if not all(isinstance(num, (int, float)) for num in self.numbers):
+            raise TypeError("All items in the list must be numbers.")
 
     def analyze(self) -> dict:
-        self.check_empty_list()
-        self.check_non_numeric_values()
+        self.validate_numbers()
+        total = sum(self.numbers)
+        count = len(self.numbers)
+
         return {
-            "count": len(self.numbers),
-            "sum": sum(self.numbers),
-            "average": sum(self.numbers) / len(self.numbers)
+            'count': count,
+            'sum': total,
+            'average': total / count if count > 0 else 0
         }
 
-# Example usage:
-# analyzer = NumberAnalyzer([1, 2, 3])
-# print(analyzer.analyze())
+    def find_max(self) -> float:
+        self.validate_numbers()
+        return max(self.numbers)
 
+    def find_min(self) -> float:
+        self.validate_numbers()
+        return min(self.numbers)
+
+# Example usage:
+# analyzer = NumberAnalyzer([1, 2, 3, 4])
+# result = analyzer.analyze()
+# print(result)
