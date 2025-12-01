@@ -1,24 +1,21 @@
 def find_largest_number(numbers):
     """
-    Find the largest number in a list.
+    Returns the largest number from a list of numbers.
 
     Parameters:
-    numbers (list): A list of numbers.
+    numbers (list): A list of numerical values.
 
     Returns:
-    int or None: The largest number in the list, or None if the list is empty.
+    int or float: The largest number in the list. If the list is empty, returns None.
     """
+    if not isinstance(numbers, list):
+        raise ValueError('Input must be a list.')
     if not numbers:
         return None
+    return max(numbers)
 
-    largest = numbers[0]
-    for number in numbers:
-        if number > largest:
-            largest = number
-    return largest
 
-# Example usage:
 if __name__ == '__main__':
-    num_list = [3, 5, 1, 2, 4]
-    print(f'The largest number is: {find_largest_number(num_list)}')
-
+    example_numbers = [10, 20, 4, 45, 99]
+    largest_number = find_largest_number(example_numbers)
+    print(f'The largest number is: {largest_number}')
