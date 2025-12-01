@@ -1,43 +1,51 @@
-from typing import List
-
 class NumberAnalyzer:
-    def __init__(self, numbers: List[float]):
+    def __init__(self, numbers):
         self.numbers = numbers
 
-    def analyze(self):
-        ":return: A dictionary containing the max, min, and average of the numbers"
-        return {
-            'max': self.find_max(),
-            'min': self.find_min(),
-            'average': self.find_average(),
-        }
-
-    def find_max(self) -> float:
+    def find_max(self):
         """
-        :return: The maximum number from the list.
-        :raises ValueError: If the list is empty.
+        Returns the maximum number from the list of numbers.
+        If the list is empty, returns None.
         """
         if not self.numbers:
-            raise ValueError('Cannot find max of an empty list.')
+            return None
         return max(self.numbers)
 
-    def find_min(self) -> float:
+    def find_min(self):
         """
-        :return: The minimum number from the list.
-        :raises ValueError: If the list is empty.
+        Returns the minimum number from the list of numbers.
+        If the list is empty, returns None.
         """
         if not self.numbers:
-            raise ValueError('Cannot find min of an empty list.')
+            return None
         return min(self.numbers)
 
     def find_average(self) -> float:
         """
-        :return: The average of the numbers. If the list is empty, returns 0.
+        Returns the average of the list of numbers.
+        If the list is empty, returns 0.0.
+        
+        :return: float
         """
-        return sum(self.numbers) / len(self.numbers) if self.numbers else 0.0
+        if not self.numbers:
+            return 0.0
+        return sum(self.numbers) / len(self.numbers)
 
-# Example usage (to be moved to a separate test file)
-# if __name__ == '__main__':
-#     analyzer = NumberAnalyzer([1.5, 2.5, 3.0])
-#     results = analyzer.analyze()
-#     print(results)  # Output should show max, min, and average
+    def analyze(self) -> dict:
+        """
+        Analyzes the list of numbers and returns a summary with max, min, and average.
+        
+        :return: dict containing the max, min, and average values.
+        """
+        return {
+            'max': self.find_max(),
+            'min': self.find_min(),
+            'average': self.find_average()
+        }
+
+# Example Usage:
+# numbers = [1, 2, 3, 4, 5]
+# analyzer = NumberAnalyzer(numbers)
+# print(analyzer.analyze())  # Should output: {'max': 5, 'min': 1, 'average': 3.0}
+
+# Note: Example usage should be moved to a separate test file.
