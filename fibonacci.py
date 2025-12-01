@@ -12,10 +12,10 @@ def print_fibonacci(n):
         raise ValueError("Input must be a non-negative integer.")
 
     a, b = 0, 1
-    for _ in range(n):
+    for _ in range(n)
         print(a, end=' ')
         a, b = b, a + b
-    print()  # For new line after the sequence
+    print(  # For new line after the sequence
 
 # Example usage
 if __name__ == '__main__':
