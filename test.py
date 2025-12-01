@@ -1,19 +1,24 @@
 def find_largest_number(numbers):
     """
-    Function to find the largest number in a list.
-    :param numbers: List of numbers
-    :return: The largest number in the list or None if the list is empty
+    Find the largest number in a list.
+
+    Parameters:
+    numbers (list): A list of numbers.
+
+    Returns:
+    int or None: The largest number in the list, or None if the list is empty.
     """
     if not numbers:
-        raise ValueError("The input list cannot be empty.")
+        return None
+
     largest = numbers[0]
     for number in numbers:
         if number > largest:
             largest = number
     return largest
 
+# Example usage:
 if __name__ == '__main__':
-    # Sample input
-    numbers = [3, 5, 2, 9, 1]
-    largest_number = find_largest_number(numbers)
-    print(f'The largest number is: {largest_number}')
+    num_list = [3, 5, 1, 2, 4]
+    print(f'The largest number is: {find_largest_number(num_list)}')
+
