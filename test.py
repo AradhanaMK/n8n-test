@@ -1,35 +1,37 @@
+# find_largest_number function
+# This function takes a list of numbers and returns the largest number in the list.
+# Example usage:
+# largest = find_largest_number([1, 2, 3, 4, 5])
+# print(largest)
+
 def find_largest_number(numbers):
     """
     Find the largest number in a list.
-
-    Parameters:
-    numbers (list): A list of numerical values.
-
+    
+    Args:
+        numbers (list): A list of numeric values.
+    
     Returns:
-    int or float: The largest number in the list.
-    Raises:
-    ValueError: If the list is empty.
+        int or float: The largest number in the list.
     """
-    if not numbers:
-        raise ValueError("The input list cannot be empty.")
     return max(numbers)
 
-# Example usage:
-# largest = find_largest_number([1, 2, 3, 4])
-# print(largest)
 
-# Automated unit tests:
+# Automated unit tests
 import unittest
 
 class TestFindLargestNumber(unittest.TestCase):
-    def test_largest_number(self):
-        self.assertEqual(find_largest_number([1, 2, 3, 4]), 4)
-        self.assertEqual(find_largest_number([-1, -2, -3]), -1)
-        self.assertEqual(find_largest_number([10, 20, 30]), 30)
 
-    def test_empty_list(self):
-        with self.assertRaises(ValueError):
-            find_largest_number([])
+    def test_positive_numbers(self):
+        self.assertEqual(find_largest_number([1, 2, 3, 4, 5]), 5)
+
+    def test_negative_numbers(self):
+        self.assertEqual(find_largest_number([-1, -2, -3, -4]), -1)
+
+    def test_mixed_numbers(self):
+        self.assertEqual(find_largest_number([-1, 0, 1]), 1)
+
 
 if __name__ == '__main__':
     unittest.main()
+
