@@ -1,25 +1,31 @@
-from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel
+from typing import List
 
-app = FastAPI()
+class NumberList:
+    def __init__(self, numbers: List[float]):
+        self.numbers = numbers
 
-class NumberList(BaseModel):
-    numbers: list
+    def find_maximum_in_list(self) -> float:
+        """Finds the maximum number in the list.
 
+        Raises:
+            ValueError: If the list is empty or contains non-numeric values.
 
-def calculate_largest_number(numbers: list) -> float:
-    if not numbers:
-        raise ValueError("The list cannot be empty.")
-    if not all(isinstance(n, (int, float)) for n in numbers):
-        raise ValueError("All elements in the list must be numbers.")
-    return max(numbers)
+        Returns:
+            float: The largest number in the list.
+        """
+        if not self.numbers:
+            raise ValueError("The list is empty. Please provide a list with numbers.")
 
-@app.post("/largest-number/")
-async def get_largest_number(number_list: NumberList):
-    try:
-        largest_number = calculate_largest_number(number_list.numbers)
-        return {"largest_number": largest_number}
-    except ValueError as e:
-        raise HTTPException(status_code=400, detail=str(e))
+        largest = self.numbers[0]
+        for number in self.numbers:
+            if not isinstance(number, (int, float)):
+                raise ValueError("All items in the list must be numbers.")
+            if number > largest:
+                largest = number
 
-# Note: You would typically have test functions below this line to ensure the correctness of your logic.
+        return largest
+
+# Example usage
+if __name__ == '__main__':
+    num_list = NumberList([2, 3, 1, 5, 4])
+    print(num_list.find_maximum_in_list())  # Should output 5
