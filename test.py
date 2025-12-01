@@ -1,15 +1,24 @@
-def find_largest_number(numbers):
-    if not numbers:
-        raise ValueError("The list is empty. Please provide a list of numbers.")
-    largest_number = numbers[0]  # Assume the first number is the largest initially
-    for current_number in numbers:
-        if current_number > largest_number:
-            largest_number = current_number
-    return largest_number
+import sys
 
-# Example usage
-if __name__ == "__main__":
+# Constants for input validation messages
+INVALID_INPUT_MSG = "Input must be a list of numbers."
+EMPTY_LIST_MSG = "The list cannot be empty."
+
+def find_max(numbers):
+    if not isinstance(numbers, list):
+        raise ValueError(INVALID_INPUT_MSG)
+    if not numbers:
+        raise ValueError(EMPTY_LIST_MSG)
+    # Using max for simplicity and efficiency
+    return max(numbers)
+
+if __name__ == '__main__':
     try:
-        print(find_largest_number([3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5]))  # Output should be 9
+        numbers = [int(x) for x in sys.argv[1:]]  # example input via command line
+        maximum = find_max(numbers)
+        print(f'The maximum number is: {maximum}')  # Output the maximum
     except ValueError as e:
         print(e)
+    except Exception as e:
+        print(f'An unexpected error occurred: {e}')  
+
