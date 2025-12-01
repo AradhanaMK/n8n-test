@@ -20,6 +20,7 @@ def factorial(n):
     result = 1
     for i in range(1, n + 1):
         result *= i
+    print('result - ', result)
     return result
 
 def test_factorial():
@@ -45,3 +46,4 @@ def test_factorial():
 
 # Uncomment the following line to run tests if this file is executed directly
 # test_factorial()
+factorial(5)
