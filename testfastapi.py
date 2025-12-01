@@ -1,31 +1,37 @@
-from typing import List
+from typing import List, Union
 
-class NumberList:
-    def __init__(self, numbers: List[float]):
+class NumberAnalyzer:
+    """
+    A class to analyze a list of numbers.
+    """
+
+    def __init__(self, numbers: List[Union[int, float]]) -> None:
         self.numbers = numbers
+        self.validate_numbers()
 
-    def find_maximum_in_list(self) -> float:
-        """Finds the maximum number in the list.
-
-        Raises:
-            ValueError: If the list is empty or contains non-numeric values.
-
-        Returns:
-            float: The largest number in the list.
+    def validate_numbers(self) -> None:
+        """
+        Validates the numbers list to ensure it contains only numeric values.
+        Raises EmptyListError if the list is empty and raises NonNumericValueError for non-numeric values.
         """
         if not self.numbers:
-            raise ValueError("The list is empty. Please provide a list with numbers.")
-
-        largest = self.numbers[0]
+            raise EmptyListError("The list is empty.")
         for number in self.numbers:
             if not isinstance(number, (int, float)):
-                raise ValueError("All items in the list must be numbers.")
-            if number > largest:
-                largest = number
+                raise NonNumericValueError(f"Non-numeric value found: {number}")
 
-        return largest
+    def find_maximum(self) -> Union[int, float]:
+        """
+        Returns the maximum value from the list of numbers.
+        """
+        return max(self.numbers)
 
-# Example usage
-if __name__ == '__main__':
-    num_list = NumberList([2, 3, 1, 5, 4])
-    print(num_list.find_maximum_in_list())  # Should output 5
+class EmptyListError(Exception):
+    pass
+
+class NonNumericValueError(Exception):
+    pass
+
+# Example usage:
+# analyzer = NumberAnalyzer([1, 2, 3, 4, 5])
+# print(analyzer.find_maximum())  # Output: 5
