@@ -1,42 +1,47 @@
-def is_prime(n: int) -> bool:
-    if n <= 1:
-        return False
-    for i in range(2, int(n**0.5) + 1):
-        if n % i == 0:
-            return False
-    return True
+from typing import List
 
 
-def generate_prime_numbers(start: int, end: int) -> list[int]:
+def generate_prime_numbers(n: int) -> List[int]:
     primes = []
-    for num in range(start, end + 1):
-        if is_prime(num):
+    for num in range(2, n + 1):
+        is_prime = True
+        for i in range(2, int(num**0.5) + 1):
+            if num % i == 0:
+                is_prime = False
+                break
+        if is_prime:
             primes.append(num)
     return primes
 
 
-def get_input_range():
+def get_input_range() -> tuple:
     while True:
         try:
-            start = int(input('Enter the start of the range (positive integer): '))
-            end = int(input('Enter the end of the range (positive integer): '))
+            start = int(input("Enter the start of the range: "))
+            end = int(input("Enter the end of the range: "))
             if start < 0 or end < 0:
-                raise ValueError('Input must be a positive integer.')
+                print("Please enter non-negative integers.")
+                continue
             if start > end:
-                raise ValueError('Start must be less than or equal to end.')
+                print("Start must be less than or equal to end.")
+                continue
             return start, end
-        except ValueError as e:
-            print(e)
+        except ValueError:
+            print("Invalid input. Please enter valid integers.")
 
 
-def display_prime_numbers(prime_numbers: list[int]) -> None:
-    if not prime_numbers:
-        print('No prime numbers found in the specified range.')
+def display_primes(primes: List[int]) -> None:
+    if primes:
+        print("Prime numbers:", primes)
     else:
-        print('Prime numbers in the specified range:', prime_numbers)
+        print("No prime numbers found in this range.")
+
+
+def main() -> None:
+    start, end = get_input_range()
+    prime_numbers = generate_prime_numbers(end)
+    display_primes([num for num in prime_numbers if num >= start])
 
 
 if __name__ == '__main__':
-    start, end = get_input_range()
-    prime_numbers = generate_prime_numbers(start, end)
-    display_prime_numbers(prime_numbers)
+    main()
