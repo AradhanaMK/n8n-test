@@ -1,4 +1,10 @@
+# fibonacci.py
+
+
 def fibonacci(n):
+    """Generate Fibonacci sequence up to the nth term."""
+    if not isinstance(n, int) or n < 0:
+        raise ValueError("Input must be a non-negative integer.")
     sequence = []
     a, b = 0, 1
     for _ in range(n):
@@ -8,12 +14,12 @@ def fibonacci(n):
 
 
 def print_fibonacci(n):
+    """Print the Fibonacci sequence up to the nth term."""
     fib_sequence = fibonacci(n)
+    print("Fibonacci sequence:")
     for num in fib_sequence:
         print(num)
-    print()  # Print a newline after the sequence
 
-# Further modularity could be achieved by allowing fibonacci to be used as a generator if needed.
 
-# To ensure code stability, automated tests should be added for the fibonacci function.
-# Example test: assert fibonacci(5) == [0, 1, 1, 2, 3]
+# Note: Consider implementing automated tests to verify the functionality of the fibonacci function.
+
